@@ -1,0 +1,477 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>TutorMatch</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+   :root {
+  /* Theme Colors */
+  --bg: #1b1b1b; /* Dark base */
+  --gradient-bg: linear-gradient(180deg, #222222 0%, #2a2a2a 100%);
+  --card: #2f2f2f;
+  --card-hover: #383838;
+  --accent1: #8b5cf6; /* Soft purple 💜 */
+  --accent2: #06b6d4; /* Cyan 💎 */
+  --accent3: #facc15; /* Lemon yellow 🍋 */
+  --text: #f8fafc;
+  --muted: #a1a1aa;
+  --border: #3f3f46;
+  --radius: 18px;
+  --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 16px 38px rgba(250, 204, 21, 0.25);
+  --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--gradient-bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: var(--transition);
+  background-attachment: fixed;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 980px;
+}
+
+/* Headings */
+h1, h2, h3 {
+  margin-bottom: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2.6rem;
+  text-align: center;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+h1::after {
+  content: " ✨";
+  font-size: 1.4rem;
+}
+
+h2 {
+  color: var(--accent3);
+  font-size: 1.7rem;
+}
+
+p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* Card Styles */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+}
+
+.card::before {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  font-size: 1.3rem;
+  opacity: 0.7;
+}
+
+.card:hover {
+  background: var(--card-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Inputs & Forms */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #3a3a3a;
+  color: var(--text);
+  margin-bottom: 14px;
+  font-size: 15px;
+  transition: var(--transition);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.25);
+  background: #444;
+}
+
+/* Buttons */
+button {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  transition: var(--transition);
+  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.25);
+}
+
+button:hover {
+  transform: translateY(-3px) scale(1.03);
+  background: linear-gradient(90deg, var(--accent2), var(--accent3));
+  box-shadow: 0 10px 28px rgba(250, 204, 21, 0.35);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Layout Grid */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.col {
+  flex: 1;
+  min-width: 220px;
+}
+
+.small {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Card List */
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.card-small {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.card-small::after {
+  content: "📘";
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  opacity: 0.7;
+}
+
+.card-small:hover {
+  background: var(--card-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Footer */
+footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  opacity: 0.85;
+}
+
+footer::after {
+  content: " 🌙 Stay Creative!";
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+  body {
+    padding: 24px 16px;
+  }
+  .card {
+    padding: 20px;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  button {
+    width: 100%;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card" id="auth-card">
+      <h1>TutorMatch</h1>
+      <div id="auth-forms">
+        <div id="signup-form">
+          <h3>Sign up</h3>
+          <input id="su-name" placeholder="Name">
+          <input id="su-email" placeholder="Email">
+          <input id="su-password" placeholder="Password" type="password">
+          <button id="btn-signup">Sign up</button>
+          <p class="small">Already have an account? <a href="#" id="show-login">Login</a></p>
+        </div>
+
+        <div id="login-form" style="display:none;">
+          <h3>Login</h3>
+          <input id="li-email" placeholder="Email">
+          <input id="li-password" placeholder="Password" type="password">
+          <button id="btn-login">Login</button>
+          <p class="small">New? <a href="#" id="show-signup">Sign up</a></p>
+        </div>
+      </div>
+      <div id="after-login" style="display:none;">
+        <p>Logged in as <span id="me-name"></span> (<span id="me-role"></span>)</p>
+        <button id="btn-logout">Logout</button>
+        <div id="role-select" style="margin-top:10px;">
+          <p class="small">Select role (if not set):</p>
+          <button id="set-student">Student</button>
+          <button id="set-teacher">Teacher</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="student-dashboard" class="card" style="display:none">
+      <h3>Student Dashboard</h3>
+      <div>
+        <h4>Post Requirement</h4>
+        <input id="req-subject" placeholder="Subject (e.g. math)">
+        <input id="req-level" placeholder="Level (e.g. 10)">
+        <input id="req-timeslots" placeholder="Timeslots (e.g. Mon-6-8)">
+        <select id="req-mode">
+          <option value="ONLINE">ONLINE</option>
+          <option value="OFFLINE">OFFLINE</option>
+        </select>
+        <input id="req-location" placeholder="Location (if offline)">
+        <input id="req-budget" placeholder="Budget per hour">
+        <button id="btn-post-req">Post requirement & Find Matches</button>
+      </div>
+
+      <div id="matches" style="margin-top:12px"></div>
+    </div>
+
+    <div id="teacher-dashboard" class="card" style="display:none">
+      <h3>Teacher Dashboard</h3>
+      <div>
+        <h4>Save Profile</h4>
+        <input id="tp-subjects" placeholder="Subjects (comma separated)">
+        <input id="tp-levels" placeholder="Levels (comma separated)">
+        <input id="tp-fee" placeholder="Fee/hour">
+        <input id="tp-timeslots" placeholder="Timeslots">
+        <select id="tp-mode">
+          <option>ONLINE</option>
+          <option>OFFLINE</option>
+          <option>BOTH</option>
+        </select>
+        <input id="tp-location" placeholder="Location">
+        <button id="btn-save-profile">Save Profile</button>
+      </div>
+
+      <div style="margin-top:12px">
+        <h4>Accepted Students</h4>
+        <div id="accepted-list"></div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+const API = '/api';
+let token = localStorage.getItem('tm_token') || null;
+
+function setToken(t){
+  token = t;
+  if(t) localStorage.setItem('tm_token', t);
+  else localStorage.removeItem('tm_token');
+  refreshUI();
+}
+
+async function signup(){
+  try{
+    const res = await fetch(API + '/auth/signup', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name:document.getElementById('su-name').value, email:document.getElementById('su-email').value, password:document.getElementById('su-password').value})
+    });
+    const data = await res.json();
+    alert('Signed up. Please login.');
+    document.getElementById('show-login').click();
+  }catch(e){ alert('Error'); }
+}
+
+async function login(){
+  try{
+    const res = await fetch(API + '/auth/login', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email:document.getElementById('li-email').value, password:document.getElementById('li-password').value})
+    });
+    const j = await res.json();
+    if (j.token) { setToken(j.token); refreshUI(); } else alert('Login failed');
+  }catch(e){ alert('Error'); }
+}
+
+async function logout(){
+  await fetch(API + '/auth/logout', {method:'POST', headers:{'X-Auth-Token': token}});
+  setToken(null);
+}
+
+async function me(){
+  if(!token) return null;
+  const r = await fetch(API + '/auth/me', {headers:{'X-Auth-Token': token}});
+  if (r.status !== 200) { setToken(null); return null;}
+  return await r.json();
+}
+
+async function setRole(role){
+  await fetch(API + '/auth/select-role?role=' + role, {method:'POST', headers:{'X-Auth-Token': token}});
+  refreshUI();
+}
+
+async function saveProfile(){
+  const dto = {
+    subjects: document.getElementById('tp-subjects').value,
+    levels: document.getElementById('tp-levels').value,
+    feePerHour: parseFloat(document.getElementById('tp-fee').value || 0),
+    timeslots: document.getElementById('tp-timeslots').value,
+    mode: document.getElementById('tp-mode').value,
+    location: document.getElementById('tp-location').value
+  };
+  const r = await fetch(API + '/teacher', {method:'POST', headers:{'Content-Type':'application/json','X-Auth-Token':token}, body: JSON.stringify(dto)});
+  if(r.ok) { alert('saved'); loadAccepted(); } else alert('Fail saving');
+}
+
+async function postRequirement(){
+  const dto = {
+    subject: document.getElementById('req-subject').value,
+    level: document.getElementById('req-level').value,
+    timeslots: document.getElementById('req-timeslots').value,
+    mode: document.getElementById('req-mode').value,
+    location: document.getElementById('req-location').value,
+    budget: parseFloat(document.getElementById('req-budget').value || 0)
+  };
+  const r = await fetch(API + '/student/requirement', {method:'POST', headers:{'Content-Type':'application/json','X-Auth-Token': token}, body: JSON.stringify(dto)});
+  const j = await r.json();
+  if(r.ok){ showMatches(j.matches); } else alert('error: ' + JSON.stringify(j));
+}
+
+function showMatches(matches){
+  const m = document.getElementById('matches');
+  m.innerHTML = '<h4>Matches</h4><div class="card-list"></div>';
+  const grid = m.querySelector('.card-list');
+  matches.forEach(item => {
+    const t = item.teacher;
+    const score = item.score;
+    const div = document.createElement('div'); div.className = 'card-small';
+    div.innerHTML = `<strong>${t.id ? 'Teacher #' + t.id : 'Teacher'}</strong>
+      <div class="small">Subjects: ${t.subjects || ''}</div>
+      <div class="small">Levels: ${t.levels || ''}</div>
+      <div class="small">Fee/hr: ${t.feePerHour || '-'}</div>
+      <div class="small">Mode: ${t.mode}</div>
+      <div class="small">Score: ${score}</div>
+      <button onclick="accept(${t.id})">Accept</button>`;
+    grid.appendChild(div);
+  });
+}
+
+async function accept(teacherId){
+  const r = await fetch(API + '/student/accept?teacherId=' + teacherId, {method:'POST', headers:{'X-Auth-Token': token}});
+  if(r.ok) { alert('Accepted'); } else { alert('Error accepting'); }
+}
+
+async function loadAccepted(){
+  const r = await fetch(API + '/teacher/accepted', {headers:{'X-Auth-Token': token}});
+  if(!r.ok) return;
+  const j = await r.json();
+  const cont = document.getElementById('accepted-list');
+  cont.innerHTML = '';
+  j.forEach(it => {
+    const s = it.student;
+    const box = document.createElement('div'); box.className='card-small';
+    box.innerHTML = `<strong>${s ? s.name : 'Student'}</strong><div class="small">${s ? s.email : ''}</div>`;
+    cont.appendChild(box);
+  });
+}
+
+async function refreshUI(){
+  const u = await me();
+  if(!u){
+    document.getElementById('auth-forms').style.display='';
+    document.getElementById('after-login').style.display='none';
+    document.getElementById('student-dashboard').style.display='none';
+    document.getElementById('teacher-dashboard').style.display='none';
+    return;
+  }
+  document.getElementById('auth-forms').style.display='none';
+  document.getElementById('after-login').style.display='';
+  document.getElementById('me-name').innerText = u.name;
+  document.getElementById('me-role').innerText = u.role;
+
+  if (u.role === 'STUDENT') {
+    document.getElementById('student-dashboard').style.display='';
+    document.getElementById('teacher-dashboard').style.display='none';
+  } else if (u.role === 'TEACHER') {
+    document.getElementById('student-dashboard').style.display='none';
+    document.getElementById('teacher-dashboard').style.display='';
+    loadAccepted();
+  } else {
+    document.getElementById('student-dashboard').style.display='none';
+    document.getElementById('teacher-dashboard').style.display='none';
+  }
+}
+
+/* event wiring */
+document.getElementById('show-login').addEventListener('click', (e)=>{e.preventDefault();document.getElementById('signup-form').style.display='none';document.getElementById('login-form').style.display='';});
+document.getElementById('show-signup').addEventListener('click', (e)=>{e.preventDefault();document.getElementById('signup-form').style.display='';document.getElementById('login-form').style.display='none';});
+document.getElementById('btn-signup').addEventListener('click', signup);
+document.getElementById('btn-login').addEventListener('click', login);
+document.getElementById('btn-logout').addEventListener('click', logout);
+document.getElementById('set-student').addEventListener('click', ()=>setRole('STUDENT'));
+document.getElementById('set-teacher').addEventListener('click', ()=>setRole('TEACHER'));
+document.getElementById('btn-save-profile').addEventListener('click', saveProfile);
+document.getElementById('btn-post-req').addEventListener('click', postRequirement);
+
+refreshUI();
+</script>
+</body>
+</html>
