@@ -8,7 +8,7 @@ The project follows a **layered architecture** and **RESTful design principles**
 
 ## Key Features
 
-### 🎓 Student Module
+### Student Module
 - Secure user registration and authentication
 - Browse available courses
 - Enroll in courses of interest
